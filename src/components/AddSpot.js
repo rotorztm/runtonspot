@@ -2,7 +2,7 @@ import React from 'react';
 
 const AddSpot =() => {
     return(
-        <div>
+        <div className='flex flex-column'>
             <button>
                 Importer un spot 
             </button>
