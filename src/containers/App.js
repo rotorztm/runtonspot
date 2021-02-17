@@ -1,52 +1,44 @@
-import logo from './logo.svg';
-import React, { Component } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import Upload from "../components/Upload";
+import Gallery from "../components/Gallery"
 import './App.css';
-import Navigation from '../components/Navigation';
-import Main from '../components/Main';
-import Landing from '../components/Landing';
-import 'tachyons';
 
-const initialState = {
-  user: {
-    pseudo: '',
-    email: ''
-  },
-  mode: 'add',
-  isSignedIn: false
+function transformUploads(uploads) {
+  return uploads.map(u => ({
+    original: u.imageUrl,
+    thumbnail: u.thumbnailUrl
+  }));
 }
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = initialState;
-  }
+function App() {
+  const [images, setImages] = useState(null);
 
-  changeMode = () => {
-    this.setState({
-      mode: this.state.mode === 'add' ? 'liste' : 'add'
-    })
-  }
-  render() {
-    const derniermode = this.state.mode;
-    console.log(derniermode);
-    return (
-      <div className="App">
-        <Navigation changeMode={this.changeMode} />
-        {
-          this.state.isSignedIn ?
-            <Landing />
-            : (
-              <div>
-                <Main mode={this.state.mode} />
-              </div>
-            )
+  const fetchUploads = useCallback(() => {
+    fetch('http://localhost:4000/api/uploads')
+      .then(response => response.json().then(data => setImages(transformUploads(data))))
+      .catch(console.error)
+  }, []);
 
-        }
+  useEffect(() => {
+    fetchUploads();
+  }, [fetchUploads])
 
+  return (
+    <>
+      <div className="container">
+        <div className="upload-container">
+          <Upload fetchUploads={fetchUploads} />
+        </div>
       </div>
-    );
-  }
-
+      <div className="container">
+        <div className="gallery-container">
+          {images && images.length ? (
+            <Gallery images={images} />
+          ) : null}
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default App;
