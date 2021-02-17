@@ -8,7 +8,8 @@ function Upload({ fetchUploads }) {
     body.append('image', file)
     return {
       url: 'http://localhost:4000/api/post/create',
-      body    };
+      body
+    };
   }
 
   const handleSubmit = (files, allFiles) => {
@@ -17,7 +18,7 @@ function Upload({ fetchUploads }) {
       f.remove();
     }
     )
-    
+
     fetchUploads();
   }
 

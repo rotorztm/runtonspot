@@ -1,28 +1,28 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Upload from "../components/Upload";
-import Gallery from "../components/Gallery"
 import './App.css';
 
 function transformUploads(uploads) {
+  console.log('Uploads',uploads);
   return uploads.map(u => ({
-    original: u.imageUrl,
-    thumbnail: u.thumbnailUrl
+    original: u.imageUrl
   }));
 }
 
 function App() {
-  const [images, setImages] = useState(null);
+  const [spots, setSpots] = useState(null);
 
+  //Ici je veux récupérer les spots non répondus par l'utilisateur courant
   const fetchUploads = useCallback(() => {
-    fetch('http://localhost:4000/api/uploads')
-      .then(response => response.json().then(data => setImages(transformUploads(data))))
+    fetch('http://localhost:4000/api/spots')
+      .then(response => response.json().then(data => setSpots(transformUploads(data))))
       .catch(console.error)
   }, []);
 
   useEffect(() => {
     fetchUploads();
   }, [fetchUploads])
-
+  console.log(spots);
   return (
     <>
       <div className="container">
@@ -31,11 +31,7 @@ function App() {
         </div>
       </div>
       <div className="container">
-        <div className="gallery-container">
-          {images && images.length ? (
-            <Gallery images={images} />
-          ) : null}
-        </div>
+     
       </div>
     </>
   );
