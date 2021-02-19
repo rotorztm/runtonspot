@@ -4,8 +4,15 @@ import 'react-dropzone-uploader/dist/styles.css'
 
 function Upload({ fetchUploads }) {
   const getUploadParams = ({ file }) => {
+    const user = {
+      id:"bd64289e-f93d-4f23-b426-ea6f867ad803"
+    }
+
+    const userstring = JSON.stringify(user);
+
     const body = new FormData()
-    body.append('image', file)
+    body.append('image', file);
+    body.append('user', userstring)
     return {
       url: 'http://localhost:4000/api/post/create',
       body
@@ -18,7 +25,6 @@ function Upload({ fetchUploads }) {
       f.remove();
     }
     )
-
     fetchUploads();
   }
 
