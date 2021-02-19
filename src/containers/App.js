@@ -4,6 +4,7 @@ import './App.css';
 import Navigation from '../components/Navigation';
 import Connexion from '../components/Connexion/Connexion';
 import CreerCompte from '../components/Connexion/CreerCompte';
+import Spot from '../components/Spot';
 import 'tachyons';
 
 function transformUploads(spots) {
@@ -24,11 +25,10 @@ function App() {
   
   }
 
-  const onConnect = (user) =>{
-    setUser(user);
+  const onConnect = (utilisateur) =>{
+    setUser(utilisateur);
     setRoute("home");
     setSignIn(true);
-  
   }
 
   //Ici je veux récupérer les spots non répondus par l'utilisateur courant
@@ -49,7 +49,7 @@ function App() {
         isSignedIn ?
           <div className="container">
             <div className="upload-container">
-              {/* <Upload fetchUploads={fetchUploads} /> */}
+              <Spot user={user}/>
             </div>
           </div> :
           
