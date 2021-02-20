@@ -1,0 +1,27 @@
+.mainSpot{
+    display:grid;
+    grid-template-columns: 30% 40% 30%;
+    grid-template-rows: 50px 1fr 1fr;
+
+}
+
+.spotParam{
+    grid-column: 1 / 2;
+    grid-row: 2/3;
+}
+
+.spotImage{
+    grid-column:2 /span 1;
+    grid-row: 2/3;
+
+}
+
+.spotReponse{
+    grid-column: 3 / 4;
+    grid-row: 2/3;
+}
+
+.spotNext{
+    grid-column: 2 / span 1;
+    grid-row: 3/sapn 1;
+}

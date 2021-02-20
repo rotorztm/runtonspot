@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
 // import Upload from "../components/Upload";
 import './App.css';
-import Navigation from '../components/Navigation';
+import Navigation from '../components/Navigation/Navigation';
 import Connexion from '../components/Connexion/Connexion';
 import CreerCompte from '../components/Connexion/CreerCompte';
-import Spot from '../components/Spot';
+import Spot from '../components/Spot/Spot';
 import 'tachyons';
 
 function transformUploads(spots) {
@@ -22,7 +22,6 @@ function App() {
 
   const onRouteChanged = (route) =>{
     setRoute(route);
-  
   }
 
   const onConnect = (utilisateur) =>{
@@ -48,7 +47,7 @@ function App() {
       {
         isSignedIn ?
           <div className="container">
-            <div className="upload-container">
+            <div className="">
               <Spot user={user}/>
             </div>
           </div> :
@@ -58,6 +57,7 @@ function App() {
                route ==="signin" ?
                 <Connexion onConnect={onConnect} onRouteChanged={onRouteChanged} /> :
                 <CreerCompte onRouteChanged={onRouteChanged} />
+                
              }
              
            </div>
